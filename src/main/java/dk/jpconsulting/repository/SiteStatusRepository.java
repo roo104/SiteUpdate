@@ -17,7 +17,7 @@ public class SiteStatusRepository implements ISiteStatusRepository {
     @Override
     public List<Site> getSites() {
         List<Site> sites = new ArrayList<>();
-        sites.add(new Site("http://eb.dk"));
+        sites.add(Site.createSite("http://eb.dk"));
 
         return sites;
     }

@@ -4,12 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "site")
-public class Site {
+public class Site implements Serializable {
 
     @Id
     @Column(columnDefinition = "BINARY(16)", length = 16)
@@ -22,13 +23,36 @@ public class Site {
         this.url = url;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public String getCheckSum() {
+        return checkSum;
+    }
+
     public boolean isSiteUpdated() {
         return true;
     }
 
+    public static Site createSite(String url) {
+        Site site = new Site(url);
+        site.id = UUID.randomUUID();
+
+        return site;
+    }
+
     @Override
     public String toString() {
-        return "Site{" +
+        return "RestSite{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
                 ", lastUpdate=" + lastUpdate +
